@@ -1,0 +1,48 @@
+table D_Prod_Categoria
+	lineageTag: efa953a7-7849-4262-a41d-ee6d12e7543c
+
+	column category_id
+		dataType: string
+		lineageTag: 60ec3dc6-9afb-4f9a-977e-f748836d7141
+		summarizeBy: none
+		sourceColumn: category_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_name
+		dataType: string
+		lineageTag: 2a592091-508f-4756-b215-c76c225a3a95
+		summarizeBy: none
+		sourceColumn: category_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		lineageTag: f6f3ab07-e8de-498f-82fb-5e1cd7803191
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'category_name - Copiar'
+		dataType: string
+		lineageTag: cbd0651f-f2eb-4494-81bc-334f73655f61
+		summarizeBy: none
+		sourceColumn: category_name - Copiar
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Prod_Categoria = m
+		mode: import
+		queryGroup: 'Camada Ouro'
+		source =
+				let
+				    Fonte = Step_categories
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

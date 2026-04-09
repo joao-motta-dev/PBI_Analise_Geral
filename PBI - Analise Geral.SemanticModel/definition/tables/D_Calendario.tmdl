@@ -1,0 +1,83 @@
+table D_Calendario
+	lineageTag: 54a68902-ea10-41d1-bd40-dd18951673c4
+
+	column Date
+		formatString: Short Date
+		lineageTag: c90a27ac-deab-44f8-b009-cb39269bc982
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: a718d706-f454-4f84-bf54-728b0eb4ce82
+			defaultHierarchy: LocalDateTable_e39ab979-b7d5-47e5-8c39-9b9c0ffad0c0.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Ano
+		formatString: 0
+		lineageTag: fe7709ee-5642-4126-85a9-787d836846a0
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Ano]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes_Nome
+		lineageTag: 2fa5a8d8-db5b-4659-aec4-0d2a29df2a67
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Mes_Nome]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes_Numero
+		formatString: 0
+		lineageTag: 70aed793-3885-462d-a833-25978a2f378b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Mes_Numero]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes_ano
+		lineageTag: 945586cd-cd25-4e10-8091-12bf963fcc02
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Mes_ano]
+		sortByColumn: Serial_mes_ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column Serial_mes_ano
+		lineageTag: 23690448-6c63-406a-8b2e-fb4503393b3f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Serial_mes_ano]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Calendario = calculated
+		mode: import
+		source = ```
+				
+				
+				    VAR DataInicio = IF(MIN(F_Pedidos[shipped_date])< MIN(F_Pedidos[order_date]), MIN(F_Pedidos[shipped_date]), IF(MIN(F_Pedidos[order_date]) < MIN(F_Pedidos[required_date]), MIN(F_Pedidos[order_date]), MIN(F_Pedidos[required_date])))
+				    VAR DataFim = IF(MAX(F_Pedidos[shipped_date])>= MAX(F_Pedidos[order_date]), MAX(F_Pedidos[shipped_date]), IF(MAX(F_Pedidos[order_date])>= MAX(F_Pedidos[required_date]), MAX(F_Pedidos[order_date]), MAX(F_Pedidos[required_date])))
+				
+				RETURN
+				
+				ADDCOLUMNS(
+				    CALENDAR(DataInicio, DataFim),
+				    "Ano", YEAR([Date]),
+				    "Mes_Nome", FORMAT([Date], "MMMM"),
+				    "Mes_Numero", MONTH([Date]),
+				    "Mes_ano", FORMAT([Date], "mm-yyyy"),
+				    "Serial_mes_ano", FORMAT([Date], "yyyymm"))
+				```
+
+	annotation PBI_Id = cfee70b2923b40b9999fd9cb36bac3ff
+

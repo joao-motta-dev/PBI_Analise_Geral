@@ -1,0 +1,184 @@
+table D_Colaboradores
+	lineageTag: 56c42970-7908-4cd0-a83f-6d5608e72c08
+
+	column employee_id
+		dataType: string
+		lineageTag: 8a064af3-e4f2-4f62-a183-dbca23ec8563
+		summarizeBy: none
+		sourceColumn: employee_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_name
+		dataType: string
+		lineageTag: 5e9a6916-17e1-457e-98ae-448a926d6548
+		summarizeBy: none
+		sourceColumn: last_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_name
+		dataType: string
+		lineageTag: 54c6a188-0cfa-4352-87b4-2604f9b4a6dd
+		summarizeBy: none
+		sourceColumn: first_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		lineageTag: 8ad6c19f-5a91-4bfd-a924-d8ae1036ca30
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column title_of_courtesy
+		dataType: string
+		lineageTag: 40a00053-01de-4f1b-91c3-f83119c683a1
+		summarizeBy: none
+		sourceColumn: title_of_courtesy
+
+		annotation SummarizationSetBy = Automatic
+
+	column birth_date
+		dataType: string
+		lineageTag: 16d16153-ea63-4a3c-9cc7-6e4b9d1a01eb
+		summarizeBy: none
+		sourceColumn: birth_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column hire_date
+		dataType: string
+		lineageTag: 878983d4-5eab-4dcc-a166-25c8aa4f6d37
+		summarizeBy: none
+		sourceColumn: hire_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column address
+		dataType: string
+		lineageTag: 5cae0cc5-9d5a-45a2-be32-9455d599290d
+		summarizeBy: none
+		sourceColumn: address
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 4ca725fb-757e-425e-ab78-fc7d2ce37c87
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: ef58018f-066e-4a95-b234-4f906405690d
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column postal_code
+		dataType: string
+		lineageTag: 86b0ff09-fb72-4ff0-8743-f962ce326c6a
+		summarizeBy: none
+		sourceColumn: postal_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 9e105c22-0c03-4ec3-b8f0-f84aa2bc9110
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column home_phone
+		dataType: string
+		lineageTag: 03ba0332-d8d8-41db-9152-00f3ea5409c5
+		summarizeBy: none
+		sourceColumn: home_phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column extension
+		dataType: string
+		lineageTag: 67c8d20d-a712-41db-b33d-775b6e742a0b
+		summarizeBy: none
+		sourceColumn: extension
+
+		annotation SummarizationSetBy = Automatic
+
+	column photo
+		dataType: string
+		lineageTag: a37b64ac-98c1-43f6-9593-141b42a7f63a
+		summarizeBy: none
+		sourceColumn: photo
+
+		annotation SummarizationSetBy = Automatic
+
+	column notes
+		dataType: string
+		lineageTag: 84d129c0-86e2-4362-8c8b-5a146d9dd4d9
+		summarizeBy: none
+		sourceColumn: notes
+
+		annotation SummarizationSetBy = Automatic
+
+	column reports_to
+		dataType: string
+		lineageTag: 52a9c935-1244-4cf6-8aa2-f02223dbe6cf
+		summarizeBy: none
+		sourceColumn: reports_to
+
+		annotation SummarizationSetBy = Automatic
+
+	column photo_path
+		dataType: string
+		lineageTag: 0a083f22-6c81-4820-ad7b-39abf384d8ea
+		summarizeBy: none
+		sourceColumn: photo_path
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Full Name'
+		dataType: string
+		lineageTag: e9404870-e51a-4ab5-a88f-63f59373d054
+		summarizeBy: none
+		sourceColumn: Full Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Reports_Name
+		dataType: string
+		lineageTag: 16138ac1-d6b3-439a-954c-3f339b28997a
+		summarizeBy: none
+		sourceColumn: Reports_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Foto
+		dataType: string
+		lineageTag: af4aa97c-1eb7-4424-b3bd-242f082ccca3
+		summarizeBy: none
+		sourceColumn: Foto
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Colaboradores = m
+		mode: import
+		queryGroup: 'Camada Ouro'
+		source =
+				let
+				    Fonte = Step_Employees
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

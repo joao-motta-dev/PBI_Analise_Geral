@@ -1,0 +1,56 @@
+table F_Colab_Territorio
+	lineageTag: c23e911a-6c71-4405-9098-d7ca7546a472
+
+	column employee_id
+		dataType: string
+		lineageTag: 899047d1-3e00-4512-905b-eaed52cba16c
+		summarizeBy: none
+		sourceColumn: employee_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column territory_id
+		dataType: string
+		lineageTag: e676d9df-2143-4008-9b6d-6ac1121315af
+		summarizeBy: none
+		sourceColumn: territory_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column territory_description
+		dataType: string
+		lineageTag: b78537df-60a4-4a7f-bcae-b4c7eede29d5
+		summarizeBy: none
+		sourceColumn: territory_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_id
+		dataType: string
+		lineageTag: 2279bfdb-97e3-4fd8-b371-5036a06962da
+		summarizeBy: none
+		sourceColumn: region_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_description
+		dataType: string
+		lineageTag: 6d5ff9fb-ef7e-486b-8783-91b4354ff437
+		summarizeBy: none
+		sourceColumn: region_description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition F_Colab_Territorio = m
+		mode: import
+		queryGroup: 'Camada Ouro'
+		source =
+				let
+				    Fonte = Step_Emp_Territory
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

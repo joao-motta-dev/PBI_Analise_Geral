@@ -1,0 +1,40 @@
+table D_Entregadores
+	lineageTag: 91dec4c1-05d5-4edc-ac87-410812d09d81
+
+	column shipper_id
+		dataType: string
+		lineageTag: ae2dd57b-ea45-41d4-aeb2-364a91e99659
+		summarizeBy: none
+		sourceColumn: shipper_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column company_name
+		dataType: string
+		lineageTag: b78d9854-968b-4dc7-a393-1dbd568ab7b3
+		summarizeBy: none
+		sourceColumn: company_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column phone
+		dataType: string
+		lineageTag: 65c605b9-3bda-4d66-9d3f-0de854d8e763
+		summarizeBy: none
+		sourceColumn: phone
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Entregadores = m
+		mode: import
+		queryGroup: 'Camada Ouro'
+		source =
+				let
+				    Fonte = Step_Shippers
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

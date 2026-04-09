@@ -1,0 +1,53 @@
+table Seletor_Indicadores_1
+	lineageTag: be960599-f414-4376-8a4c-fb4a1b8f4fe4
+
+	column Seletor_Indicadores_1
+		lineageTag: 7fd40249-b43e-4f6b-bd50-0d0e9db1b63e
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Seletor_Indicadores_1 Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'Seletor_Indicadores_1 Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Seletor_Indicadores_1 Campos'
+		isHidden
+		lineageTag: c5d7e60a-661f-4e37-a91d-8d58608a3767
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Seletor_Indicadores_1 Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Seletor_Indicadores_1 Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 1126fa15-6559-47d6-a0d4-f25554d6ae4b
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Seletor_Indicadores_1 = calculated
+		mode: import
+		source =
+				{
+				    ("Taxa de Churn", NAMEOF('@_Medidas'[%_Churn_pedidos]), 0),
+				    ("Desconto Médio", NAMEOF('@_Medidas'[Desconto_Pedidos]), 1),
+				    ("PA", NAMEOF('@_Medidas'[PA]), 2),
+				    ("Qtde de Itens", NAMEOF('@_Medidas'[Qtde_itens_pedidos]), 3),
+				    ("Qtde de Pedidos", NAMEOF('@_Medidas'[Qtde de Pedidos]), 4),
+				    ("Receita", NAMEOF('@_Medidas'[Receita_Pedidos]), 5),
+				    ("Ticket Médio", NAMEOF('@_Medidas'[Ticket_Med_Pedido]), 6)
+				}
+
+	annotation PBI_Id = adbf0f8ebe5e4960aed2d65dc03049d7
+

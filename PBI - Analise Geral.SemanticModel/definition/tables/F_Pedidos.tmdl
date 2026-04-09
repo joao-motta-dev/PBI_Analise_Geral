@@ -1,0 +1,181 @@
+table F_Pedidos
+	lineageTag: 915c0b4f-e05a-4bc3-b262-08cdce0a9032
+
+	column order_id
+		dataType: string
+		lineageTag: fe153ac7-d31c-4b00-a622-46b7fb1db3c3
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: 4304a0c6-6fde-42d4-b57e-c4cbac62a601
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column employee_id
+		dataType: string
+		lineageTag: 83dc2a27-1a03-4244-a135-b1087eb98099
+		summarizeBy: none
+		sourceColumn: employee_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 66698d87-efab-4ac9-b4cb-10db33240ae7
+		summarizeBy: none
+		sourceColumn: order_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column required_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b293b07d-75e4-48c2-920a-01582dc48ddc
+		summarizeBy: none
+		sourceColumn: required_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column shipped_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5a3d4703-3712-4457-bd7b-4dbf4fdc5011
+		summarizeBy: none
+		sourceColumn: shipped_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ship_via
+		dataType: string
+		lineageTag: bc7d2a87-814d-4943-a371-9cdb5924e979
+		summarizeBy: none
+		sourceColumn: ship_via
+
+		annotation SummarizationSetBy = Automatic
+
+	column freight
+		dataType: int64
+		formatString: 0
+		lineageTag: 5f43d8c7-f7bb-4bed-b83d-c0b89f56062f
+		summarizeBy: sum
+		sourceColumn: freight
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_name
+		dataType: string
+		lineageTag: 96265257-e92e-4e66-817a-9154f500e6c2
+		summarizeBy: none
+		sourceColumn: ship_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_address
+		dataType: string
+		lineageTag: 718402b6-1ad7-40ed-83e5-9cf99acf77b4
+		summarizeBy: none
+		sourceColumn: ship_address
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_city
+		dataType: string
+		lineageTag: e811abf4-6789-4c6d-90da-bee735f2c347
+		summarizeBy: none
+		sourceColumn: ship_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_region
+		dataType: string
+		lineageTag: 6e1f72de-8371-43fe-ada4-dd9284a766ef
+		summarizeBy: none
+		sourceColumn: ship_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_postal_code
+		dataType: string
+		lineageTag: 6156b05b-fc99-4f69-a318-a5da3c9047bd
+		summarizeBy: none
+		sourceColumn: ship_postal_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_country
+		dataType: string
+		lineageTag: 15c7a554-0374-4cf6-b73e-200eafac7b2f
+		summarizeBy: none
+		sourceColumn: ship_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: string
+		lineageTag: adcaf329-2b56-4bfe-a804-542086f030e6
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: double
+		formatString: 0
+		lineageTag: 2a1be955-8495-490e-a003-15616ddd4a47
+		summarizeBy: sum
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: a6a36314-440d-42d7-b71b-a9a084a8e8de
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column discount
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 0558763a-35ff-474d-bc37-2cc20290edf0
+		summarizeBy: sum
+		sourceColumn: discount
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pais_Sigla
+		dataType: string
+		lineageTag: a29d832f-037c-462c-bc18-84205c6334ae
+		summarizeBy: none
+		sourceColumn: Pais_Sigla
+
+		annotation SummarizationSetBy = Automatic
+
+	partition F_Pedidos = m
+		mode: import
+		queryGroup: 'Camada Ouro'
+		source =
+				let
+				    Fonte = Step_Orders
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

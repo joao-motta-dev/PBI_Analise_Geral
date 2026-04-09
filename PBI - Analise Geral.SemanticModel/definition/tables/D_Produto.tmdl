@@ -1,0 +1,64 @@
+table D_Produto
+	lineageTag: 93c6e5aa-a186-4814-8cd6-1c3005a287f9
+
+	column product_id
+		dataType: string
+		lineageTag: 7d5f01e9-0c08-45b1-be99-6b1108a67f7f
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: 03e9fc76-c71b-429e-94a2-c0c77e915730
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_id
+		dataType: string
+		lineageTag: c51302d2-aae3-4e17-b96c-f980765ed843
+		summarizeBy: none
+		sourceColumn: supplier_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_id
+		dataType: string
+		lineageTag: 30f5b09d-2d5f-4f5b-8ed4-858ffe1b29a1
+		summarizeBy: none
+		sourceColumn: category_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity_per_unit
+		dataType: string
+		lineageTag: 9ed676a2-8655-45a2-8014-d96c0105860c
+		summarizeBy: none
+		sourceColumn: quantity_per_unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column discontinued
+		dataType: string
+		lineageTag: 54f4dec1-8253-43fc-8c09-0946b1b1b77d
+		summarizeBy: none
+		sourceColumn: discontinued
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Produto = m
+		mode: import
+		queryGroup: 'Camada Ouro'
+		source =
+				let
+				    Fonte = Step_Products_dim
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

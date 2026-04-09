@@ -1,0 +1,112 @@
+table D_Forncedores
+	lineageTag: 85c8fc9d-4721-4762-9b43-a20317ac1c9d
+
+	column supplier_id
+		dataType: string
+		lineageTag: f734052c-2624-44f9-b70b-b14556d3919a
+		summarizeBy: none
+		sourceColumn: supplier_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column company_name
+		dataType: string
+		lineageTag: 510fca36-22a4-48a3-adea-961d0fd8adb2
+		summarizeBy: none
+		sourceColumn: company_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column contact_name
+		dataType: string
+		lineageTag: d2acc6c1-24af-44a0-b9f5-cc16ac86036f
+		summarizeBy: none
+		sourceColumn: contact_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column contact_title
+		dataType: string
+		lineageTag: 920eee1b-2bad-4171-a861-bfda3dd6c7d6
+		summarizeBy: none
+		sourceColumn: contact_title
+
+		annotation SummarizationSetBy = Automatic
+
+	column address
+		dataType: string
+		lineageTag: 437ff38e-5b59-4b6e-82ed-79bcaa4c5a9f
+		summarizeBy: none
+		sourceColumn: address
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 5a86d0ec-1828-499d-a11d-24bc85b24673
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: 0fe9e5ee-0d76-4f53-9a45-93a1ad114de9
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column postal_code
+		dataType: string
+		lineageTag: dce2ef06-fc5b-417d-8417-18dfa41458db
+		summarizeBy: none
+		sourceColumn: postal_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 65a4517a-d257-4377-9b7a-4f16e1d034a0
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column phone
+		dataType: string
+		lineageTag: 2a7c47cd-1694-47c7-b2b9-63da67e455f3
+		summarizeBy: none
+		sourceColumn: phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column fax
+		dataType: string
+		lineageTag: 5d016e43-6e38-43bb-9a8e-1b740e44740c
+		summarizeBy: none
+		sourceColumn: fax
+
+		annotation SummarizationSetBy = Automatic
+
+	column homepage
+		dataType: string
+		lineageTag: 0b8f8115-5918-449f-9c3f-891cfe287213
+		summarizeBy: none
+		sourceColumn: homepage
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Forncedores = m
+		mode: import
+		queryGroup: 'Camada Ouro'
+		source =
+				let
+				    Fonte = Step_Suppliers
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

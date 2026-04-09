@@ -1,0 +1,39 @@
+table Seletor_Indicadores_5
+	lineageTag: 80e5f9fd-72dc-45e8-ae06-280421a8d4a1
+
+	column Value1
+		lineageTag: 9b6a7cff-6215-4d9d-96fd-763b61afbb83
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value2
+		lineageTag: af58c230-bb32-47d1-b51c-12b9b109b063
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value3
+		formatString: 0
+		lineageTag: 88fbdb23-db97-4b25-8298-6a3244c8fdaa
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Seletor_Indicadores_5 = calculated
+		mode: import
+		source =
+				{
+				    ("Qtde de Itens", NAMEOF('@_Medidas'[Qtde_itens_pedidos]), 3),
+				    ("Qtde de Pedidos", NAMEOF('@_Medidas'[Qtde de Pedidos]), 4),
+				    ("Receita", NAMEOF('@_Medidas'[Receita_Pedidos]), 5)
+				}
+
+	annotation PBI_Id = 08db954af4254a428d479d205c31fd82
+

@@ -1,0 +1,56 @@
+relationship AutoDetected_3bce1276-dae7-42d4-b7e7-e293f09ba7a5
+	fromColumn: F_Pedidos.customer_id
+	toColumn: D_Cliente.customer_id
+
+relationship AutoDetected_505fb60b-2562-45af-bbe7-1e2f5b08b997
+	fromColumn: F_Pedidos.employee_id
+	toColumn: D_Colaboradores.employee_id
+
+relationship AutoDetected_b89bc064-2970-47ab-b767-fff53d1c38c5
+	fromColumn: F_Pedidos.product_id
+	toColumn: D_Produto.product_id
+
+relationship AutoDetected_fad19bbb-d314-406f-9b57-a3e0df125531
+	fromColumn: D_Produto.supplier_id
+	toColumn: D_Forncedores.supplier_id
+
+relationship AutoDetected_d7e418cc-e7c2-4b61-8a18-d34aec4e3a81
+	fromColumn: D_Produto.category_id
+	toColumn: D_Prod_Categoria.category_id
+
+relationship 3feab0cc-f66e-c611-ff5b-4955d08b2602
+	fromColumn: F_Pedidos.Pais_Sigla
+	toColumn: D_Loc_Entrega.Pais_Sigla
+
+relationship baf449dd-8b45-4366-38a0-ccb4f940003c
+	fromColumn: F_Pedidos.ship_via
+	toColumn: D_Entregadores.shipper_id
+
+relationship a718d706-f454-4f84-bf54-728b0eb4ce82
+	joinOnDateBehavior: datePartOnly
+	fromColumn: D_Calendario.Date
+	toColumn: LocalDateTable_e39ab979-b7d5-47e5-8c39-9b9c0ffad0c0.Date
+
+relationship 02c05632-edde-2c60-1555-be7f5bd75732
+	isActive: false
+	fromColumn: F_Pedidos.order_date
+	toColumn: D_Calendario.Date
+
+relationship 5116d79b-b10d-0bb2-0d77-ffb4f874b110
+	isActive: false
+	fromColumn: F_Pedidos.required_date
+	toColumn: D_Calendario.Date
+
+relationship e9692496-2c61-8213-a688-9b5dd1b6903d
+	isActive: false
+	fromColumn: F_Pedidos.shipped_date
+	toColumn: D_Calendario.Date
+
+relationship 4afcabd1-a6d0-1391-a9f6-f59ff081a5a7
+	fromColumn: F_Colab_Territorio.employee_id
+	toColumn: D_Colaboradores.employee_id
+
+relationship AutoDetected_11d88423-6609-4fc5-afd3-a908b30dc9db
+	fromColumn: F_produto.product_id
+	toColumn: D_Produto.product_id
+

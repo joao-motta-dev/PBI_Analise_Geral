@@ -1,0 +1,217 @@
+table @_Medidas
+	lineageTag: e4e2df71-e920-4075-a445-9bcdfe05527e
+
+	measure Receita_Pedidos =
+			
+			CALCULATE(SUMX(F_Pedidos, F_Pedidos[unit_price]*F_Pedidos[quantity]*(1-F_Pedidos[discount])), USERELATIONSHIP(D_Calendario[Date], F_Pedidos[order_date]))
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: b34a706b-8a8d-4811-844b-1e8430503d14
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure 'Qtde de Pedidos' =
+			
+			CALCULATE(DISTINCTCOUNT(F_Pedidos[order_id]), USERELATIONSHIP(D_Calendario[Date], F_Pedidos[order_date]))
+		formatString: 0
+		lineageTag: a0f71d58-1f7f-477c-a2cc-960de9331bfe
+
+	measure Ticket_Med_Pedido = [Receita_Pedidos]/ [Qtde de Pedidos]
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: df9b9934-3c88-44a9-8ec1-a5b4adf1d416
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure Churn_pedidos =
+			
+			CALCULATE(DISTINCTCOUNT(F_Pedidos[order_id]), F_Pedidos[shipped_date] = BLANK())
+		formatString: 0
+		lineageTag: e6d4d87f-ef91-4a1c-bb4b-9d35d63af95b
+
+	measure %_Churn_pedidos = IFERROR([Churn_pedidos]/[Qtde de Pedidos], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ca6433d3-5234-4f33-b86f-4336513bc63d
+
+	measure Qtde_itens_pedidos =
+			
+			
+			CALCULATE(COUNTROWS(F_Pedidos), USERELATIONSHIP(D_Calendario[Date], F_Pedidos[order_date]))
+		formatString: 0
+		lineageTag: f9f7daac-9571-489a-ac48-999f5e7f1aa3
+
+	measure PA = [Qtde_itens_pedidos]/[Qtde de Pedidos]
+		lineageTag: 799f9c8c-ed12-4069-879a-1166c68cfe58
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Desconto_Pedidos =
+			
+			
+			CALCULATE(SUM(F_Pedidos[discount])/COUNTROWS(F_Pedidos), USERELATIONSHIP(D_Calendario[Date], F_Pedidos[order_date]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: cac12fd2-4329-4187-8800-80811bf8cb22
+
+	measure Seletor_1 =
+			
+			SWITCH(VALUES(Seletor_Indicadores_1[Seletor_Indicadores_1 Pedido]),
+			    0, [%_Churn_pedidos],
+			    1, [Desconto_Pedidos],
+			    2, [PA],
+			    3, [Qtde_itens_pedidos],
+			    4, [Qtde de Pedidos],
+			    5, [Receita_Pedidos],
+			    6, [Ticket_Med_Pedido])
+		lineageTag: 1186909a-1b77-4e54-9d77-c98e5d9c362e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Seletor_2 =
+			
+			SWITCH(VALUES(Seletor_Indicadores_2[Seletor_indicadores_2 Pedido]),
+			    0, [%_Churn_pedidos],
+			    1, [Desconto_Pedidos],
+			    2, [PA],
+			    3, [Qtde_itens_pedidos],
+			    4, [Qtde de Pedidos],
+			    5, [Receita_Pedidos],
+			    6, [Ticket_Med_Pedido])
+		lineageTag: 142518dc-536e-46b0-863d-eb80f0d3826b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Seletor_3 =
+			
+			SWITCH(VALUES(Seletor_indicadores_3[Value3]),
+			    0, [%_Churn_pedidos],
+			    1, [Desconto_Pedidos],
+			    2, [PA],
+			    3, [Qtde_itens_pedidos],
+			    4, [Qtde de Pedidos],
+			    5, [Receita_Pedidos],
+			    6, [Ticket_Med_Pedido])
+		lineageTag: 84151586-22f7-418a-83d4-9ace7f3d043b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure %_Receita =
+			
+			
+			[Receita_Pedidos]/CALCULATE([Receita_Pedidos], ALL(D_Colaboradores))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 092e8292-1168-400e-a1fb-bb760d5f475e
+
+	measure %_Pedidos =
+			
+			
+			[Qtde de Pedidos]/CALCULATE([Qtde de Pedidos], ALL(D_Colaboradores))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8d637e83-170e-4147-abae-566a19aa4af1
+
+	measure Seletor_4 =
+			
+			SWITCH(VALUES(Seletor_Indicador_4[Seletor_Indicador_4 Pedido]),
+			    0, [%_Pedidos],
+			    1, [%_Receita])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8835ba3b-6206-472f-b25e-cbb026b009f4
+
+	measure Ranking_1 = IF(MAX(D_Colaboradores[Full Name]) = "Nenhum", BLANK(),"A sua posição no ranking é "&CONVERT(RANKX(all(D_Colaboradores), [Seletor_4],,,Dense),TEXT)&"º")
+		lineageTag: 0332cd91-1d4a-4d8c-897d-81b6f6db5889
+
+	measure Seletor_5 =
+			
+			SWITCH(VALUES(Seletor_indicadores_5[Value3]),
+			    0, [%_Churn_pedidos],
+			    1, [Desconto_Pedidos],
+			    2, [PA],
+			    3, [Qtde_itens_pedidos],
+			    4, [Qtde de Pedidos],
+			    5, [Receita_Pedidos],
+			    6, [Ticket_Med_Pedido])
+		lineageTag: 21d21095-b048-46ec-9429-f5155c6144e2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Seletor_6 =
+			
+			SWITCH(VALUES(Seletor_indicadores_6[Value3]),
+			    0, [%_Churn_pedidos],
+			    1, [Desconto_Pedidos],
+			    2, [PA],
+			    3, [Qtde_itens_pedidos],
+			    4, [Qtde de Pedidos],
+			    5, [Receita_Pedidos],
+			    6, [Ticket_Med_Pedido])
+		formatString: 0.00
+		lineageTag: ec6ede07-6ab5-4067-bdac-7ac446bdbbc6
+
+	measure Seletor_7 =
+			
+			SWITCH(VALUES(Seletor_indicadores_7[Value3]),
+			    0, [%_Churn_pedidos],
+			    1, [Desconto_Pedidos],
+			    2, [PA],
+			    3, [Qtde_itens_pedidos],
+			    4, [Qtde de Pedidos],
+			    5, [Receita_Pedidos],
+			    6, [Ticket_Med_Pedido])
+		formatString: 0.00
+		lineageTag: 9159a202-efbd-44e9-a0fb-d9affd7eeaf8
+
+	measure Seletor_8 =
+			
+			SWITCH(VALUES(Seletor_indicadores_8[Value3]),
+			    0, [%_Churn_pedidos],
+			    1, [Desconto_Pedidos],
+			    2, [PA],
+			    3, [Qtde_itens_pedidos],
+			    4, [Qtde de Pedidos],
+			    5, [Receita_Pedidos],
+			    6, [Ticket_Med_Pedido])
+		formatString: 0.00
+		lineageTag: 0e666024-d70d-4e43-bbfa-9e9189df731c
+
+	measure 'Qtde de Pedidos_ent_%' =
+			
+			CALCULATE(DISTINCTCOUNT(F_Pedidos[order_id]), USERELATIONSHIP(D_Calendario[Date], F_Pedidos[order_date]))
+			/
+			CALCULATE(DISTINCTCOUNT(F_Pedidos[order_id]), USERELATIONSHIP(D_Calendario[Date], F_Pedidos[order_date]), ALL(D_Entregadores[company_name]))
+		formatString: 0%;-0%;0%
+		lineageTag: 897c3c2b-d090-4387-b905-ccbd1cc95935
+
+	measure 'Qtde de Pedidos_fornecedor_%' =
+			
+			CALCULATE(DISTINCTCOUNT(F_Pedidos[order_id]), USERELATIONSHIP(D_Calendario[Date], F_Pedidos[order_date]))
+			/
+			CALCULATE(DISTINCTCOUNT(F_Pedidos[order_id]), USERELATIONSHIP(D_Calendario[Date], F_Pedidos[order_date]), ALL(D_Prod_Categoria[category_name]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 9565973c-4eee-4348-948b-1f7c97bf6163
+
+	measure 'Cor do Ranking' =
+			
+			VAR Ranking = RANKX(ALLSELECTED(D_Prod_Categoria[category_name]), [Receita_Pedidos], , DESC)
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    Ranking <= 2, "#0072C6", -- Azul para os 2 primeiros
+			    Ranking <= 4, "#F2C811", -- Amarelo para os 2 do meio
+			    "#D13438"                -- Vermelho para os 2 últimos
+			)
+		lineageTag: 07d214a6-1ee0-4a57-82d9-d9e5f2e2ffd4
+
+	column Column
+		formatString: 0
+		lineageTag: fdc4064c-fd99-45e5-82fc-cfe42ce8c2a0
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition @_Medidas = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 011fadda242847fba0503cf10a200a35
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

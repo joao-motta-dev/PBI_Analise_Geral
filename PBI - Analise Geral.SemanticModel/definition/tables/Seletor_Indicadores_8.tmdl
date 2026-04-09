@@ -1,0 +1,43 @@
+table Seletor_Indicadores_8
+	lineageTag: 26229fac-f01c-4df7-8704-9d83b6397aeb
+
+	column Value1
+		lineageTag: a7cfe4ac-fd1a-43a7-9498-ed341ced6fbe
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value2
+		lineageTag: 604d93f9-6a20-4b61-bb5e-a6bc0b83f44c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value3
+		formatString: 0
+		lineageTag: 9ae2f731-5656-4c2a-b407-a09664484f09
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Seletor_Indicadores_8 = calculated
+		mode: import
+		source =
+				{
+				    ("Taxa de Churn", NAMEOF('@_Medidas'[%_Churn_pedidos]), 0),
+				    ("Desconto Médio", NAMEOF('@_Medidas'[Desconto_Pedidos]), 1),
+				    ("PA", NAMEOF('@_Medidas'[PA]), 2),
+				    ("Qtde de Itens", NAMEOF('@_Medidas'[Qtde_itens_pedidos]), 3),
+				    ("Qtde de Pedidos", NAMEOF('@_Medidas'[Qtde de Pedidos]), 4),
+				    ("Receita", NAMEOF('@_Medidas'[Receita_Pedidos]), 5),
+				    ("Ticket Médio", NAMEOF('@_Medidas'[Ticket_Med_Pedido]), 6)
+				}
+
+	annotation PBI_Id = 951946aaf8554701bd47312a06810623
+

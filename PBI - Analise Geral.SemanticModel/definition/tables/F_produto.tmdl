@@ -1,0 +1,69 @@
+table F_produto
+	lineageTag: 7cbfdabe-d651-41e2-a751-3529f448b442
+
+	column product_id
+		dataType: string
+		lineageTag: e8961300-e78c-4ed1-b4ff-42e9def90a26
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_id
+		dataType: string
+		lineageTag: 742ccbda-a3ed-4880-b793-ac6dfc466c55
+		summarizeBy: none
+		sourceColumn: supplier_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_id
+		dataType: string
+		lineageTag: 2692b505-d5ef-48a3-a696-c0c0c9815a99
+		summarizeBy: none
+		sourceColumn: category_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: double
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 11b8fdb4-16e4-42a8-8e04-69f45df8e5d2
+		summarizeBy: sum
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column units_in_stock
+		dataType: int64
+		formatString: 0
+		lineageTag: d328614c-aaf5-4367-a59a-4abf5c8c516e
+		summarizeBy: sum
+		sourceColumn: units_in_stock
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_on_order
+		dataType: int64
+		formatString: 0
+		lineageTag: 5b89c2b1-0bdf-4937-b1a9-c8c73bf35196
+		summarizeBy: sum
+		sourceColumn: units_on_order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition F_produto = m
+		mode: import
+		queryGroup: 'Camada Ouro'
+		source =
+				let
+				    Fonte = Step_Products_fact
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,485 @@
+expression 'northwind (3) - Original' =
+		let
+		    Fonte = Folder.Files("C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)")
+		in
+		    Fonte
+	lineageTag: f9523d00-347a-4d65-9879-7b65ef1e7bc8
+	queryGroup: 'Camada Bronze'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Categories =
+		let
+		    Fonte = #"northwind (3) - Original",
+		    #"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_categories csv" = Fonte{[#"Folder Path"="C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\",Name="categories.csv"]}[Content],
+		    #"CSV Importado" = Csv.Document(#"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_categories csv",[Delimiter=";", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"CSV Importado", [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"category_id", Int64.Type}, {"category_name", type text}, {"description", type text}, {"picture", type text}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: 5d89fa43-53b7-4cdb-8092-17eeab65ed52
+	queryGroup: 'Camada Bronze'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Customers =
+		let
+		    Fonte = #"northwind (3) - Original",
+		    #"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_customers csv" = Fonte{[#"Folder Path"="C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\",Name="customers.csv"]}[Content],
+		    #"CSV Importado" = Csv.Document(#"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_customers csv",[Delimiter=";", Columns=11, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"CSV Importado",{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}, {"Column6", type text}, {"Column7", type text}, {"Column8", type text}, {"Column9", type text}, {"Column10", type text}, {"Column11", type text}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: 75de7af3-a73e-4821-96e6-d36cf5ece6f5
+	queryGroup: 'Camada Bronze'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Employees =
+		let
+		    Fonte = #"northwind (3) - Original",
+		    #"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_employees csv" = Fonte{[#"Folder Path"="C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\",Name="employees.csv"]}[Content],
+		    #"CSV Importado" = Csv.Document(#"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_employees csv",[Delimiter=";", Columns=18, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"CSV Importado", [PromoteAllScalars=true])
+		in
+		    #"Cabeçalhos Promovidos"
+	lineageTag: 931cd3c5-10ce-4c5a-9735-e851b94220f7
+	queryGroup: 'Camada Bronze'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Employee_territories =
+		let
+		    Fonte = #"northwind (3) - Original",
+		    #"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_employee_territories csv" = Fonte{[#"Folder Path"="C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\",Name="employee_territories.csv"]}[Content],
+		    #"CSV Importado" = Csv.Document(#"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_employee_territories csv",[Delimiter=";", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"CSV Importado", [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"employee_id", type text}, {"territory_id", type text}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: b11995c2-9886-4a69-af1d-1722ce6d09c4
+	queryGroup: 'Camada Bronze'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Orders =
+		let
+		    Fonte = #"northwind (3) - Original",
+		    #"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_orders csv" = Fonte{[#"Folder Path"="C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\",Name="orders.csv"]}[Content],
+		    #"CSV Importado" = Csv.Document(#"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_orders csv",[Delimiter=";", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"CSV Importado", [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"order_id", Int64.Type}, {"customer_id", type text}, {"employee_id", Int64.Type}, {"order_date", type date}, {"required_date", type date}, {"shipped_date", type date}, {"ship_via", Int64.Type}, {"freight", Int64.Type}, {"ship_name", type text}, {"ship_address", type text}, {"ship_city", type text}, {"ship_region", type text}, {"ship_postal_code", type text}, {"ship_country", type text}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: ca1fec04-1207-4616-ba3d-4ae990fca0dd
+	queryGroup: 'Camada Bronze'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Order_details =
+		let
+		    Fonte = #"northwind (3) - Original",
+		    #"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_order_details csv" = Fonte{[#"Folder Path"="C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\",Name="order_details.csv"]}[Content],
+		    #"CSV Importado" = Csv.Document(#"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_order_details csv",[Delimiter=";", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"CSV Importado", [PromoteAllScalars=true]),
+		    #"Valor Substituído" = Table.ReplaceValue(#"Cabeçalhos Promovidos",".",",",Replacer.ReplaceText,{"unit_price", "quantity", "discount"}),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Valor Substituído",{{"unit_price", type number}, {"discount", type number}, {"quantity", Int64.Type}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: 71ae28fc-504b-4e4a-93d4-491d3979fc42
+	queryGroup: 'Camada Bronze'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Products =
+		let
+		    Fonte = #"northwind (3) - Original",
+		    #"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_products csv" = Fonte{[#"Folder Path"="C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\",Name="products.csv"]}[Content],
+		    #"CSV Importado" = Csv.Document(#"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_products csv",[Delimiter=";", Columns=10, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"CSV Importado", [PromoteAllScalars=true]),
+		    #"Valor Substituído" = Table.ReplaceValue(#"Cabeçalhos Promovidos",".",",",Replacer.ReplaceText,{"unit_price"}),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Valor Substituído",{{"product_id", Int64.Type}, {"product_name", type text}, {"supplier_id", Int64.Type}, {"category_id", Int64.Type}, {"quantity_per_unit", type text}, {"unit_price", type number}, {"units_in_stock", Int64.Type}, {"units_on_order", Int64.Type}, {"reorder_level", Int64.Type}, {"discontinued", Int64.Type}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: 93af3e94-fbab-45aa-8fa3-556794fc25bb
+	queryGroup: 'Camada Bronze'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Region =
+		let
+		    Fonte = #"northwind (3) - Original",
+		    #"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_region csv" = Fonte{[#"Folder Path"="C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\",Name="region.csv"]}[Content],
+		    #"CSV Importado" = Csv.Document(#"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_region csv",[Delimiter=";", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"CSV Importado", [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"region_id", type text}, {"region_description", type text}}),
+		    #"Texto Aparado" = Table.TransformColumns(#"Tipo Alterado",{{"region_id", Text.Trim, type text}})
+		in
+		    #"Texto Aparado"
+	lineageTag: dd898ec8-f149-4566-b4bc-b7c5212740ef
+	queryGroup: 'Camada Bronze'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Shippers =
+		let
+		    Fonte = #"northwind (3) - Original",
+		    #"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_shippers csv" = Fonte{[#"Folder Path"="C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\",Name="shippers.csv"]}[Content],
+		    #"CSV Importado" = Csv.Document(#"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_shippers csv",[Delimiter=";", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"CSV Importado", [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"shipper_id", Int64.Type}, {"company_name", type text}, {"phone", type text}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: eda7b748-5b3c-4475-8f10-a7604f4a46e4
+	queryGroup: 'Camada Bronze'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Suppliers =
+		let
+		    Fonte = #"northwind (3) - Original",
+		    #"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_suppliers csv" = Fonte{[#"Folder Path"="C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\",Name="suppliers.csv"]}[Content],
+		    #"CSV Importado" = Csv.Document(#"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_suppliers csv",[Delimiter=";", Columns=12, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"CSV Importado", [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"supplier_id", Int64.Type}, {"company_name", type text}, {"contact_name", type text}, {"contact_title", type text}, {"address", type text}, {"city", type text}, {"region", type text}, {"postal_code", type text}, {"country", type text}, {"phone", type text}, {"fax", type text}, {"homepage", type text}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: df8bf565-a26c-4200-a1f7-cea247b023b2
+	queryGroup: 'Camada Bronze'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Territories =
+		let
+		    Fonte = #"northwind (3) - Original",
+		    #"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_territories csv" = Fonte{[#"Folder Path"="C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\",Name="territories.csv"]}[Content],
+		    #"CSV Importado" = Csv.Document(#"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_territories csv",[Delimiter=";", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"CSV Importado", [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"territory_id", type text}, {"territory_description", type text}, {"region_id", type text}}),
+		    #"Texto Aparado1" = Table.TransformColumns(#"Tipo Alterado",{{"region_id", Text.Trim, type text}}),
+		    #"Texto Aparado" = Table.TransformColumns(#"Texto Aparado1",{{"territory_id", Text.Trim, type text}})
+		in
+		    #"Texto Aparado"
+	lineageTag: b0a55ca7-53a2-4d87-8f76-a0f5a42754be
+	queryGroup: 'Camada Bronze'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Step_Orders =
+		let
+		    Fonte = Orders,
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"employee_id", type text}, {"customer_id", type text}, {"order_id", type text}, {"ship_via", type text}}),
+		    #"Texto Aparado" = Table.TransformColumns(#"Tipo Alterado",{{"customer_id", Text.Trim, type text}, {"order_id", Text.Trim, type text}, {"employee_id", Text.Trim, type text}, {"ship_via", Text.Trim, type text}, {"ship_region", Text.Trim, type text}}),
+		    #"Consultas Mescladas" = Table.NestedJoin(#"Texto Aparado", {"order_id"}, Step_order_details, {"order_id"}, "Step_order_details", JoinKind.LeftOuter),
+		    #"Step_order_details Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "Step_order_details", {"product_id", "unit_price", "quantity", "discount"}, {"product_id", "unit_price", "quantity", "discount"}),
+		    #"Texto Aparado1" = Table.TransformColumns(#"Step_order_details Expandido",{{"ship_country", Text.Trim, type text}, {"ship_region", Text.Trim, type text}}),
+		    #"Personalização Adicionada" = Table.AddColumn(#"Texto Aparado1", "Pais_Sigla", each [ship_country]&"-"&[ship_region])
+		in
+		    #"Personalização Adicionada"
+	lineageTag: c3bb967c-5573-45ce-8a35-e0a125bd631a
+	queryGroup: 'Camada Prata'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Step_order_details =
+		let
+		    Fonte = Order_details,
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"order_id", type text}, {"product_id", type text}}),
+		    #"Texto Aparado" = Table.TransformColumns(#"Tipo Alterado",{{"order_id", Text.Trim, type text}, {"product_id", Text.Trim, type text}})
+		in
+		    #"Texto Aparado"
+	lineageTag: 2aa33b61-2333-4618-9935-219403f2dc5b
+	queryGroup: 'Camada Prata'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Step_categories =
+		let
+		    Fonte = Categories,
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"category_id", type text}}),
+		    #"Texto Aparado" = Table.TransformColumns(#"Tipo Alterado",{{"category_id", Text.Trim, type text}}),
+		    #"Colunas Removidas" = Table.RemoveColumns(#"Texto Aparado",{"picture"}),
+		    #"Coluna Duplicada" = Table.DuplicateColumn(#"Colunas Removidas", "category_name", "category_name - Copiar")
+		in
+		    #"Coluna Duplicada"
+	lineageTag: 7583bbff-70e0-4350-a7d0-b5e1d2c4a640
+	queryGroup: 'Camada Prata'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Step_customers =
+		let
+		    Fonte = Customers,
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"customer_id", type text}, {"company_name", type text}, {"contact_name", type text}, {"contact_title", type text}, {"address", type text}, {"city", type text}, {"region", type text}, {"postal_code", type text}, {"country", type text}, {"phone", type text}, {"fax", type text}}),
+		    #"Texto Aparado" = Table.TransformColumns(#"Tipo Alterado",{{"region", Text.Trim, type text}, {"country", Text.Trim, type text}}),
+		    #"Personalização Adicionada" = Table.AddColumn(#"Texto Aparado", "Pais_Sigla", each [country]&"-"&[region]),
+		    #"Consultas Mescladas" = Table.NestedJoin(#"Personalização Adicionada", {"Pais_Sigla"}, Step_Localizacao, {"Pais_Sigla"}, "Step_Localizacao", JoinKind.LeftOuter),
+		    #"Step_Localizacao Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "Step_Localizacao", {"state_name", "state_region", "Pais"}, {"state_name", "state_region", "Pais"}),
+		    #"Valor Substituído" = Table.ReplaceValue(#"Step_Localizacao Expandido",null,"Outro",Replacer.ReplaceValue,{"state_name", "state_region", "Pais"})
+		in
+		    #"Valor Substituído"
+	lineageTag: 2b9a98c4-2969-4c96-84d7-9ea266a8121c
+	queryGroup: 'Camada Prata'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Step_Employees =
+		let
+		    Fonte = Employees,
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"employee_id", type text}}),
+		    #"Texto Aparado" = Table.TransformColumns(#"Tipo Alterado",{{"employee_id", Text.Trim, type text}}),
+		    #"Personalização Adicionada" = Table.AddColumn(#"Texto Aparado", "Full Name", each [title_of_courtesy]&[first_name]&" "&[last_name]),
+		    #"Consultas Mescladas" = Table.NestedJoin(#"Personalização Adicionada", {"reports_to"}, #"Personalização Adicionada", {"employee_id"}, "Texto Aparado", JoinKind.LeftOuter),
+		    #"Texto Aparado Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "Texto Aparado", {"Full Name"}, {"Reports_Name"}),
+		    #"Consulta Acrescentada" = Table.Combine({#"Texto Aparado Expandido", Apoio_colaborador}),
+		    #"Consultas Mescladas1" = Table.NestedJoin(#"Consulta Acrescentada", {"employee_id"}, base_fotos, {"ID"}, "Planilha1", JoinKind.LeftOuter),
+		    #"Planilha1 Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas1", "Planilha1", {"Foto"}, {"Foto"})
+		in
+		    #"Planilha1 Expandido"
+	lineageTag: e99a1990-83e0-4f17-ae99-ce1bea5795c7
+	queryGroup: 'Camada Prata'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Step_Emp_Territory =
+		let
+		    Fonte = Table.NestedJoin(Employee_territories, {"territory_id"}, Territories, {"territory_id"}, "Territories", JoinKind.LeftOuter),
+		    #"Territories Expandido" = Table.ExpandTableColumn(Fonte, "Territories", {"territory_description", "region_id"}, {"territory_description", "region_id"}),
+		    #"Consultas Mescladas" = Table.NestedJoin(#"Territories Expandido", {"region_id"}, Region, {"region_id"}, "Region", JoinKind.LeftOuter),
+		    #"Region Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "Region", {"region_description"}, {"region_description"})
+		in
+		    #"Region Expandido"
+	lineageTag: 1670bc1b-1707-40fa-badd-29b49c106604
+	queryGroup: 'Camada Prata'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Step_Products_dim =
+		let
+		    Fonte = Products,
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"product_id", type text}, {"supplier_id", type text}, {"category_id", type text}}),
+		    #"Texto Aparado" = Table.TransformColumns(#"Tipo Alterado",{{"product_id", Text.Trim, type text}, {"supplier_id", Text.Trim, type text}, {"category_id", Text.Trim, type text}}),
+		    #"Colunas Removidas" = Table.RemoveColumns(#"Texto Aparado",{"unit_price", "units_in_stock", "units_on_order", "reorder_level"}),
+		    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Colunas Removidas",{{"discontinued", type text}}),
+		    #"Valor Substituído" = Table.ReplaceValue(#"Tipo Alterado1","1","Sim",Replacer.ReplaceText,{"discontinued"}),
+		    #"Valor Substituído1" = Table.ReplaceValue(#"Valor Substituído","0","Não",Replacer.ReplaceText,{"discontinued"})
+		in
+		    #"Valor Substituído1"
+	lineageTag: e0d6718a-9991-402f-93ea-4d675996e305
+	queryGroup: 'Camada Prata'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Step_Shippers =
+		let
+		    Fonte = Shippers,
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"shipper_id", type text}}),
+		    #"Texto Aparado" = Table.TransformColumns(#"Tipo Alterado",{{"shipper_id", Text.Trim, type text}})
+		in
+		    #"Texto Aparado"
+	lineageTag: abd5e848-b5ce-4a97-95c6-e0705b6283a0
+	queryGroup: 'Camada Prata'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Step_Suppliers =
+		let
+		    Fonte = Suppliers,
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"supplier_id", type text}}),
+		    #"Texto Aparado" = Table.TransformColumns(#"Tipo Alterado",{{"supplier_id", Text.Trim, type text}, {"region", Text.Trim, type text}})
+		in
+		    #"Texto Aparado"
+	lineageTag: c2cd2ab0-a7f2-4c03-a8d9-7b1105355179
+	queryGroup: 'Camada Prata'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Step_BR =
+		let
+		    Fonte = Json.Document(Web.Contents("https://servicodados.ibge.gov.br/api/v1/localidades/municipios")),
+		    #"Convertido para Tabela" = Table.FromList(Fonte, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Column1 Expandido" = Table.ExpandRecordColumn(#"Convertido para Tabela", "Column1", {"id", "nome", "microrregiao", "regiao-imediata"}, {"id", "nome", "microrregiao", "regiao-imediata"}),
+		    #"regiao-imediata Expandido" = Table.ExpandRecordColumn(#"Column1 Expandido", "regiao-imediata", {"id", "nome", "regiao-intermediaria"}, {"regiao-imediata.id", "regiao-imediata.nome", "regiao-imediata.regiao-intermediaria"}),
+		    #"regiao-imediata.regiao-intermediaria Expandido" = Table.ExpandRecordColumn(#"regiao-imediata Expandido", "regiao-imediata.regiao-intermediaria", {"id", "nome", "UF"}, {"regiao-imediata.regiao-intermediaria.id", "regiao-imediata.regiao-intermediaria.nome", "regiao-imediata.regiao-intermediaria.UF"}),
+		    #"regiao-imediata.regiao-intermediaria.UF Expandido" = Table.ExpandRecordColumn(#"regiao-imediata.regiao-intermediaria Expandido", "regiao-imediata.regiao-intermediaria.UF", {"id", "sigla", "nome", "regiao"}, {"regiao-imediata.regiao-intermediaria.UF.id", "regiao-imediata.regiao-intermediaria.UF.sigla", "regiao-imediata.regiao-intermediaria.UF.nome", "regiao-imediata.regiao-intermediaria.UF.regiao"}),
+		    #"regiao-imediata.regiao-intermediaria.UF.regiao Expandido" = Table.ExpandRecordColumn(#"regiao-imediata.regiao-intermediaria.UF Expandido", "regiao-imediata.regiao-intermediaria.UF.regiao", {"id", "sigla", "nome"}, {"regiao-imediata.regiao-intermediaria.UF.regiao.id", "regiao-imediata.regiao-intermediaria.UF.regiao.sigla", "regiao-imediata.regiao-intermediaria.UF.regiao.nome"}),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"regiao-imediata.regiao-intermediaria.UF.regiao Expandido",{{"id", Int64.Type}, {"nome", type text}, {"microrregiao", type any}, {"regiao-imediata.id", Int64.Type}, {"regiao-imediata.nome", type text}, {"regiao-imediata.regiao-intermediaria.id", Int64.Type}, {"regiao-imediata.regiao-intermediaria.nome", type text}, {"regiao-imediata.regiao-intermediaria.UF.id", Int64.Type}, {"regiao-imediata.regiao-intermediaria.UF.sigla", type text}, {"regiao-imediata.regiao-intermediaria.UF.nome", type text}, {"regiao-imediata.regiao-intermediaria.UF.regiao.id", Int64.Type}, {"regiao-imediata.regiao-intermediaria.UF.regiao.sigla", type text}, {"regiao-imediata.regiao-intermediaria.UF.regiao.nome", type text}}),
+		    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"microrregiao", "regiao-imediata.id", "regiao-imediata.nome", "regiao-imediata.regiao-intermediaria.id", "regiao-imediata.regiao-intermediaria.nome", "regiao-imediata.regiao-intermediaria.UF.id", "regiao-imediata.regiao-intermediaria.UF.regiao.id", "regiao-imediata.regiao-intermediaria.UF.regiao.sigla", "id", "nome"}),
+		    #"Duplicatas Removidas" = Table.Distinct(#"Colunas Removidas"),
+		    #"Personalização Adicionada" = Table.AddColumn(#"Duplicatas Removidas", "Pais", each "Brazil"),
+		    #"Colunas Renomeadas" = Table.RenameColumns(#"Personalização Adicionada",{{"regiao-imediata.regiao-intermediaria.UF.sigla", "sigla"}, {"regiao-imediata.regiao-intermediaria.UF.nome", "state_name"}, {"regiao-imediata.regiao-intermediaria.UF.regiao.nome", "state_region"}})
+		in
+		    #"Colunas Renomeadas"
+	lineageTag: 4440ca58-6ac8-47eb-b459-7eb79d5f2550
+	queryGroup: 'Camada Prata'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Step_Localizacao =
+		let
+		    Fonte = Table.Combine({Step_BR, Step_US}),
+		    #"Personalização Adicionada" = Table.AddColumn(Fonte, "Pais_Sigla", each [Pais]&"-"&[sigla])
+		in
+		    #"Personalização Adicionada"
+	lineageTag: e4048efb-e63d-446b-860f-5489bebb757e
+	queryGroup: 'Camada Prata'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression US =
+		let
+		    Fonte = #"northwind (3) - Original",
+		    #"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_us_states csv" = Fonte{[#"Folder Path"="C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\",Name="us_states.csv"]}[Content],
+		    #"CSV Importado" = Csv.Document(#"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_us_states csv",[Delimiter=";", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"CSV Importado", [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"state_id", Int64.Type}, {"state_name", type text}, {"state_abbr", type text}, {"state_region", type text}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: 92da095b-2c15-44e9-bd59-7ea3aeee4eed
+	queryGroup: 'Camada Bronze'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Step_US =
+		let
+		    Fonte = #"northwind (3) - Original",
+		    #"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_us_states csv" = Fonte{[#"Folder Path"="C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\",Name="us_states.csv"]}[Content],
+		    #"CSV Importado" = Csv.Document(#"C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\_us_states csv",[Delimiter=";", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"CSV Importado", [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"state_id", Int64.Type}, {"state_name", type text}, {"state_abbr", type text}, {"state_region", type text}}),
+		    #"Personalização Adicionada" = Table.AddColumn(#"Tipo Alterado", "Pais", each "USA"),
+		    #"Colunas Removidas" = Table.RemoveColumns(#"Personalização Adicionada",{"state_id"}),
+		    #"Colunas Renomeadas" = Table.RenameColumns(#"Colunas Removidas",{{"state_abbr", "sigla"}})
+		in
+		    #"Colunas Renomeadas"
+	lineageTag: 1a6d8419-804a-4719-8ac4-9fed476b906d
+	queryGroup: 'Camada Prata'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Step_Orders_agg =
+		let
+		    Fonte = Step_Orders,
+		    #"Personalização Adicionada" = Table.AddColumn(Fonte, "Receita", each [unit_price]*[quantity])
+		in
+		    #"Personalização Adicionada"
+	lineageTag: 59da5817-1c19-4b39-ae9b-2962a5c5cf27
+	queryGroup: 'Camada Prata'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Apoio_colaborador =
+		let
+		    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMjRQ0lHyS83LKM1Vio0FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [employee_id = _t, name = _t]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"employee_id", Int64.Type}, {"name", type text}}),
+		    #"Colunas Renomeadas" = Table.RenameColumns(#"Tipo Alterado",{{"name", "Full Name"}}),
+		    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"employee_id", type text}}),
+		    #"Valor Substituído" = Table.ReplaceValue(#"Tipo Alterado1","10","0",Replacer.ReplaceText,{"employee_id"})
+		in
+		    #"Valor Substituído"
+	lineageTag: 9c8abe94-1a93-4d11-9ff1-8179b02fed43
+	queryGroup: 'Camada Prata'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Step_Products_fact =
+		let
+		    Fonte = Products,
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"product_id", type text}, {"supplier_id", type text}, {"category_id", type text}}),
+		    #"Texto Aparado" = Table.TransformColumns(#"Tipo Alterado",{{"product_id", Text.Trim, type text}, {"supplier_id", Text.Trim, type text}, {"category_id", Text.Trim, type text}}),
+		    #"Colunas Removidas" = Table.RemoveColumns(#"Texto Aparado",{"product_name", "quantity_per_unit", "discontinued", "reorder_level"})
+		in
+		    #"Colunas Removidas"
+	lineageTag: 19dfd3a4-f004-491d-ba7b-7f92bebf8005
+	queryGroup: 'Camada Prata'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression Step_customers_fact =
+		let
+		    Fonte = Customers,
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"customer_id", type text}, {"company_name", type text}, {"contact_name", type text}, {"contact_title", type text}, {"address", type text}, {"city", type text}, {"region", type text}, {"postal_code", type text}, {"country", type text}, {"phone", type text}, {"fax", type text}}),
+		    #"Texto Aparado" = Table.TransformColumns(#"Tipo Alterado",{{"region", Text.Trim, type text}, {"country", Text.Trim, type text}}),
+		    #"Colunas Removidas" = Table.RemoveColumns(#"Texto Aparado",{"contact_name", "address", "city", "region", "postal_code", "country", "phone", "fax"})
+		in
+		    #"Colunas Removidas"
+	lineageTag: 5ff3b3c9-3a55-4871-a69b-9930c5d0630e
+	queryGroup: 'Camada Prata'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+expression base_fotos =
+		let
+		    Fonte = Excel.Workbook(File.Contents("C:\Users\jgsmo\Documents\Cases ou Antigos\Indicium\northwind (3)\bases_fotos.xlsx"), null, true),
+		    Planilha1_Sheet = Fonte{[Item="Planilha1",Kind="Sheet"]}[Data],
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Planilha1_Sheet, [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"ID", type text}, {"Foto", type text}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: 0586f466-682f-4fa1-8944-18f7b1280654
+	queryGroup: 'Camada Bronze'
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

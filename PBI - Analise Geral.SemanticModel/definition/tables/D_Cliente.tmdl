@@ -1,0 +1,136 @@
+table D_Cliente
+	lineageTag: d5a61007-48ca-4b63-ae47-3d55c5a91258
+
+	column customer_id
+		dataType: string
+		lineageTag: 3bbc5da0-eb71-4e7d-ba6c-36b6b6fceb16
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column company_name
+		dataType: string
+		lineageTag: 641ff1c7-06cc-4ef7-8ffa-c8a43701090f
+		summarizeBy: none
+		sourceColumn: company_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column contact_name
+		dataType: string
+		lineageTag: 7ad0a7ba-fa1a-4bb5-9f0f-65dd58dd6c61
+		summarizeBy: none
+		sourceColumn: contact_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column contact_title
+		dataType: string
+		lineageTag: f803fc8f-1e4c-4221-9327-2a00408dfe89
+		summarizeBy: none
+		sourceColumn: contact_title
+
+		annotation SummarizationSetBy = Automatic
+
+	column address
+		dataType: string
+		lineageTag: 0d354d72-2837-4c76-b1d1-4ffca00027a3
+		summarizeBy: none
+		sourceColumn: address
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 26c2263b-3e92-45d7-821e-82330c1805d6
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: 3ff3d75a-7a47-4ee0-92e7-053af64e539d
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column postal_code
+		dataType: string
+		lineageTag: 5785648f-a594-46c0-955c-26ebcc6893d5
+		summarizeBy: none
+		sourceColumn: postal_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 67b45a8c-56ee-4781-986a-7d7ebf4b21c7
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column phone
+		dataType: string
+		lineageTag: a297dea9-5c01-4703-8114-8c03d19d8e51
+		summarizeBy: none
+		sourceColumn: phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column fax
+		dataType: string
+		lineageTag: 5efc350d-c9b7-4cd5-8fc6-49530c552064
+		summarizeBy: none
+		sourceColumn: fax
+
+		annotation SummarizationSetBy = Automatic
+
+	column state_name
+		dataType: string
+		lineageTag: b5f85d4c-d656-463b-aa8b-c4aeb248bdb3
+		summarizeBy: none
+		sourceColumn: state_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column state_region
+		dataType: string
+		lineageTag: df1b0dde-358a-4612-afbe-b4a0cbe9453e
+		summarizeBy: none
+		sourceColumn: state_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pais
+		dataType: string
+		lineageTag: 8f666380-4cc9-4d7e-a171-98eda911abb5
+		summarizeBy: none
+		sourceColumn: Pais
+
+		annotation SummarizationSetBy = Automatic
+
+	column Email
+		type: calculated
+		lineageTag: 6e19ce23-fe80-46fd-aa6b-f92ed50731b9
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Cliente = m
+		mode: import
+		queryGroup: 'Camada Ouro'
+		source =
+				let
+				    Fonte = Step_customers,
+				    #"Colunas Removidas" = Table.RemoveColumns(Fonte,{"Pais_Sigla"})
+				in
+				    #"Colunas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

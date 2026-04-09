@@ -1,0 +1,48 @@
+table Seletor_Indicador_4
+	lineageTag: 1deed796-a3ff-4de2-b83f-691ee88035fb
+
+	column Seletor_Indicador_4
+		lineageTag: 87c46032-cbfe-488f-8a1e-d0a36a9e9ad3
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Seletor_Indicador_4 Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'Seletor_Indicador_4 Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Seletor_Indicador_4 Campos'
+		isHidden
+		lineageTag: c34dce93-5749-46b7-bcf1-73ea31860934
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Seletor_Indicador_4 Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Seletor_Indicador_4 Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 6562eea8-5605-4b7e-8ad9-7e53f604f1e6
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Seletor_Indicador_4 = calculated
+		mode: import
+		source =
+				{
+				    ("% de Pedidos", NAMEOF('@_Medidas'[%_Pedidos]), 0),
+				    ("% de Receita", NAMEOF('@_Medidas'[%_Receita]), 1)
+				}
+
+	annotation PBI_Id = 0e0c91e3a8ff43a5be78620c6100175c
+

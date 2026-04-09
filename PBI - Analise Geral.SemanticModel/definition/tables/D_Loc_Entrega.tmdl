@@ -1,0 +1,57 @@
+table D_Loc_Entrega
+	lineageTag: 246b9205-84f9-4f9a-8a15-c4166f5bb814
+
+	column sigla
+		dataType: string
+		lineageTag: 346f1128-a9dd-4c87-8b48-af40e4fd6f82
+		summarizeBy: none
+		sourceColumn: sigla
+
+		annotation SummarizationSetBy = Automatic
+
+	column state_name
+		dataType: string
+		lineageTag: 407945cd-7de7-4702-b9ce-ded0e860f2f6
+		summarizeBy: none
+		sourceColumn: state_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column state_region
+		dataType: string
+		lineageTag: b098cd2f-e93e-40ce-9184-5ca44d6a23fd
+		summarizeBy: none
+		sourceColumn: state_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pais
+		dataType: string
+		lineageTag: 30db1b1a-7f89-496b-a371-e6425586b0cb
+		summarizeBy: none
+		sourceColumn: Pais
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pais_Sigla
+		dataType: string
+		lineageTag: e350b470-62d2-48e0-82ae-50a74a4da4a9
+		summarizeBy: none
+		sourceColumn: Pais_Sigla
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_Loc_Entrega = m
+		mode: import
+		queryGroup: 'Camada Ouro'
+		source =
+				let
+				    Fonte = Table.NestedJoin(Step_Localizacao, {"Pais_Sigla"}, Step_Orders, {"Pais_Sigla"}, "Step_Orders", JoinKind.Inner),
+				    #"Colunas Removidas" = Table.RemoveColumns(Fonte,{"Step_Orders"})
+				in
+				    #"Colunas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

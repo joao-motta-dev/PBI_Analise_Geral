@@ -1,0 +1,48 @@
+table Seletor_indicadores_3
+	lineageTag: c67d11f1-0924-47ee-b3fd-241eea52571b
+
+	column Value1
+		lineageTag: 31083bc2-235f-4578-a026-1a21e9a79a53
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value2
+		lineageTag: 51c6a229-3b25-42a4-94e5-995b6bcc43ae
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value3
+		formatString: 0
+		lineageTag: e3013ac9-674e-42c4-b2ed-2e60efd8378d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Titulo_grafico_3 = Seletor_indicadores_3[Value1]&" no Período"
+		lineageTag: f01a1fe2-5651-4842-b032-4b8d09ee585f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Seletor_indicadores_3 = calculated
+		mode: import
+		source =
+				{
+				    ("Desconto Médio", NAMEOF('@_Medidas'[Desconto_Pedidos]), 1),
+				    ("PA", NAMEOF('@_Medidas'[PA]), 2),
+				    ("Qtde de Itens", NAMEOF('@_Medidas'[Qtde_itens_pedidos]), 3),
+				    ("Qtde de Pedidos", NAMEOF('@_Medidas'[Qtde de Pedidos]), 4),
+				    ("Receita", NAMEOF('@_Medidas'[Receita_Pedidos]), 5),
+				    ("Ticket Médio", NAMEOF('@_Medidas'[Ticket_Med_Pedido]), 6)
+				}
+
+	annotation PBI_Id = 593878b34b9a49bb95259e726345d7b3
+
